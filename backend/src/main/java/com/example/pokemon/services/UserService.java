@@ -173,4 +173,15 @@ public class UserService {
 //            userRepo.save(user);
 //        }
 //    }
+
+    public void deleteFavouritePokemon(Pokemon pokemon, Long userId) {
+        User user = userRepo.findById(userId).orElseThrow(() -> new EntityNotFoundException(String.format(
+                "User with ID: %d, was not found", userId)));
+
+        boolean removed = user.getFavouritePokemons().removeIf(p -> p.getId().equals(pokemon.getId()));
+        if (removed) {
+            userRepo.save(user);
+        }
+
+    }
 }
