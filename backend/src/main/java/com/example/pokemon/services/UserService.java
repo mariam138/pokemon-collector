@@ -118,6 +118,12 @@ public class UserService {
 //                .map(Pokemon::getId)
 //                .toList();
 //    }
+
+    public List<Pokemon> findFavouritePokemons(Long id) {
+        User user = userRepo.findById(id).orElseThrow(() -> new EntityNotFoundException(String.format(
+                "User with ID: %d, was not found", id)));
+        return user.getFavouritePokemons().stream().toList();
+    }
 //
 //    public void addMyFavouritePokemon(OAuth2User principal, Long pokemonId) {
 //        if (pokemonId == null || pokemonId <= 0) {
