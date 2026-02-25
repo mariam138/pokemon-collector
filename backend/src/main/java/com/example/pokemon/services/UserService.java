@@ -145,7 +145,7 @@ public class UserService {
 //        }
 //    }
 
-    public void addFavouritePokemon(Pokemon pokemon, Long userId) {
+    public void addFavouritePokemons(Pokemon pokemon, Long userId) {
         User user = userRepo.findById(userId).orElseThrow(() -> new EntityNotFoundException(String.format(
                 "User with ID: %d, was not found", userId)));
 
