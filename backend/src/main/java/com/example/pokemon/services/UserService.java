@@ -27,97 +27,109 @@ public class UserService {
         return new UserResponse(user.getId(), user.getName(), user.getEmail());
     }
 
-    private User getMe(OAuth2User principal) {
-        if (principal == null) {
-            throw new IllegalStateException("Not authenticated.");
+    // Create new user on POST request
+    public UserResponse addUser(CreateUserRequest newUserRequest) {
+        if (userRepo.findByEmail(newUserRequest.getEmail())) {
+            throw new IllegalArgumentException("Email already in use: " + newUserRequest.getEmail());
         }
-
-        String email = principal.getAttribute("email");
-        if (email == null || email.isBlank()) {
-            throw new IllegalStateException("OAuth login did not provide an email address.");
-        }
-
-        return userRepo.findByEmail(email)
-                .orElseThrow(() -> new EntityNotFoundException("User not found for email: " + email));
+        User user = new User();
+        user.setName(newUserRequest.getName());
+        user.setEmail(newUserRequest.getEmail());
+        User saved = userRepo.save(user);
+        return mapToResponse(saved);
     }
 
-    public UserResponse getOrCreateFromOAuth(OAuth2User principal) {
-        if (principal == null) {
-            throw new IllegalStateException("Not authenticated.");
-        }
-
-        String email = principal.getAttribute("email");
-        String name = principal.getAttribute("name");
-
-        if (email == null || email.isBlank()) {
-            throw new IllegalStateException("OAuth login did not provide an email address.");
-        }
-
-        User user = userRepo.findByEmail(email).orElseGet(() -> {
-            User newUser = new User();
-            newUser.setEmail(email);
-            newUser.setName((name != null && !name.isBlank()) ? name : "Unknown");
-            return userRepo.save(newUser);
-        });
-
-        return mapToResponse(user);
-    }
-
-    public UserResponse updateMyName(OAuth2User principal, UpdateUserRequest request) {
-        if (request == null || request.getName() == null || request.getName().isBlank()) {
-            throw new IllegalArgumentException("Name must not be blank.");
-        }
-
-        User user = getMe(principal);
-        user.setName(request.getName().trim());
-        return mapToResponse(userRepo.save(user));
-    }
-
-    public void deleteMe(OAuth2User principal) {
-        User user = getMe(principal);
-        userRepo.delete(user);
-    }
-
-    public List<Long> getMyFavouritePokemonIds(OAuth2User principal) {
-        User user = getMe(principal);
-        return user.getFavouritePokemons()
-                .stream()
-                .map(Pokemon::getId)
-                .toList();
-    }
-
-    public void addMyFavouritePokemon(OAuth2User principal, Long pokemonId) {
-        if (pokemonId == null || pokemonId <= 0) {
-            throw new IllegalArgumentException("pokemonId must be positive.");
-        }
-
-        User user = getMe(principal);
-
-        Pokemon pokemon = pokemonRepo.findById(pokemonId)
-                .orElseThrow(() -> new EntityNotFoundException("Pokemon not found: " + pokemonId));
-
-        boolean alreadyFavourite = user.getFavouritePokemons()
-                .stream()
-                .anyMatch(p -> p.getId().equals(pokemonId));
-
-        if (!alreadyFavourite) {
-            user.getFavouritePokemons().add(pokemon);
-            userRepo.save(user);
-        }
-    }
-
-    public void removeMyFavouritePokemon(OAuth2User principal, Long pokemonId) {
-        if (pokemonId == null || pokemonId <= 0) {
-            throw new IllegalArgumentException("pokemonId must be positive.");
-        }
-
-        User user = getMe(principal);
-
-        boolean removed = user.getFavouritePokemons()
-                .removeIf(p -> p.getId().equals(pokemonId));
-
-        if (removed) {
-            userRepo.save(user);
-        }
-    }
+//    private User getMe(OAuth2User principal) {
+//        if (principal == null) {
+//            throw new IllegalStateException("Not authenticated.");
+//        }
+//
+//        String email = principal.getAttribute("email");
+//        if (email == null || email.isBlank()) {
+//            throw new IllegalStateException("OAuth login did not provide an email address.");
+//        }
+//
+//        return userRepo.findByEmail(email)
+//                .orElseThrow(() -> new EntityNotFoundException("User not found for email: " + email));
+//    }
+//
+//    public UserResponse getOrCreateFromOAuth(OAuth2User principal) {
+//        if (principal == null) {
+//            throw new IllegalStateException("Not authenticated.");
+//        }
+//
+//        String email = principal.getAttribute("email");
+//        String name = principal.getAttribute("name");
+//
+//        if (email == null || email.isBlank()) {
+//            throw new IllegalStateException("OAuth login did not provide an email address.");
+//        }
+//
+//        User user = userRepo.findByEmail(email).orElseGet(() -> {
+//            User newUser = new User();
+//            newUser.setEmail(email);
+//            newUser.setName((name != null && !name.isBlank()) ? name : "Unknown");
+//            return userRepo.save(newUser);
+//        });
+//
+//        return mapToResponse(user);
+//    }
+//
+//    public UserResponse updateMyName(OAuth2User principal, UpdateUserRequest request) {
+//        if (request == null || request.getName() == null || request.getName().isBlank()) {
+//            throw new IllegalArgumentException("Name must not be blank.");
+//        }
+//
+//        User user = getMe(principal);
+//        user.setName(request.getName().trim());
+//        return mapToResponse(userRepo.save(user));
+//    }
+//
+//    public void deleteMe(OAuth2User principal) {
+//        User user = getMe(principal);
+//        userRepo.delete(user);
+//    }
+//
+//    public List<Long> getMyFavouritePokemonIds(OAuth2User principal) {
+//        User user = getMe(principal);
+//        return user.getFavouritePokemons()
+//                .stream()
+//                .map(Pokemon::getId)
+//                .toList();
+//    }
+//
+//    public void addMyFavouritePokemon(OAuth2User principal, Long pokemonId) {
+//        if (pokemonId == null || pokemonId <= 0) {
+//            throw new IllegalArgumentException("pokemonId must be positive.");
+//        }
+//
+//        User user = getMe(principal);
+//
+//        Pokemon pokemon = pokemonRepo.findById(pokemonId)
+//                .orElseThrow(() -> new EntityNotFoundException("Pokemon not found: " + pokemonId));
+//
+//        boolean alreadyFavourite = user.getFavouritePokemons()
+//                .stream()
+//                .anyMatch(p -> p.getId().equals(pokemonId));
+//
+//        if (!alreadyFavourite) {
+//            user.getFavouritePokemons().add(pokemon);
+//            userRepo.save(user);
+//        }
+//    }
+//
+//    public void removeMyFavouritePokemon(OAuth2User principal, Long pokemonId) {
+//        if (pokemonId == null || pokemonId <= 0) {
+//            throw new IllegalArgumentException("pokemonId must be positive.");
+//        }
+//
+//        User user = getMe(principal);
+//
+//        boolean removed = user.getFavouritePokemons()
+//                .removeIf(p -> p.getId().equals(pokemonId));
+//
+//        if (removed) {
+//            userRepo.save(user);
+//        }
+//    }
 }
