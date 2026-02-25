@@ -54,7 +54,7 @@ public class UserService {
 
     // DELETE user by id
     public void deleteUser(Long id) {
-        if(!userRepo.existsById(id)) {
+        if (!userRepo.existsById(id)) {
             throw new EntityNotFoundException(String.format(
                     "User with ID: %d, was not found", id));
         }
@@ -144,6 +144,20 @@ public class UserService {
 //            userRepo.save(user);
 //        }
 //    }
+
+    public void addFavouritePokemon(Pokemon pokemon, Long userId) {
+        User user = userRepo.findById(userId).orElseThrow(() -> new EntityNotFoundException(String.format(
+                "User with ID: %d, was not found", userId)));
+
+        // Save pokemon if it doesn't already exist
+        if (pokemon.getId() != null && !pokemonRepo.existsById(pokemon.getId())) {
+            pokemonRepo.save(pokemon);
+        }
+
+        // Add pokemon to user's favourites
+        user.getFavouritePokemons().add(pokemon);
+        userRepo.save(user);
+    }
 //
 //    public void removeMyFavouritePokemon(OAuth2User principal, Long pokemonId) {
 //        if (pokemonId == null || pokemonId <= 0) {
