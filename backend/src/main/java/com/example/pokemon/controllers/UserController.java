@@ -1,5 +1,6 @@
 package com.example.pokemon.controllers;
 
+import com.example.pokemon.DTOs.CreatePokemonRequest;
 import com.example.pokemon.DTOs.CreateUserRequest;
 import com.example.pokemon.DTOs.UpdateUserRequest;
 import com.example.pokemon.DTOs.UserResponse;
@@ -70,9 +71,10 @@ public class UserController {
 //        return ResponseEntity.ok().build();
 //    }
 
-    @PostMapping("/{id}")
-    public List<Pokemon> addFavouritePokemons(@PathVariable Long userId, @RequestBody Pokemon pokemon) {
-        userService.addFavouritePokemons(pokemon, userId);
+    @PostMapping("/{userId}/favourites")
+    public List<Pokemon> addFavouritePokemons(@PathVariable Long userId,
+                                              @RequestBody List<CreatePokemonRequest> pokemonRequests) {
+        userService.addFavouritePokemons(pokemonRequests, userId);
         // Returns updated list of favourite pokemon
         return userService.findFavouritePokemons(userId);
     }
