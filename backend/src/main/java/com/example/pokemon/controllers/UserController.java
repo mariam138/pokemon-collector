@@ -70,8 +70,10 @@ public class UserController {
 //    }
 
     @PostMapping("/{id}")
-    public List<Pokemon> addFavouritePokemons() {
-        return userService.addFavouritePokemons();
+    public List<Pokemon> addFavouritePokemons(@PathVariable Long userId, @RequestBody Pokemon pokemon) {
+        userService.addFavouritePokemons(pokemon, userId);
+        // Returns updated list of favourite pokemon
+        return userService.findFavouritePokemons(userId);
     }
 //
 //    @DeleteMapping("/me/favourites/{pokemonId}")
@@ -87,8 +89,8 @@ public class UserController {
 //    }
 
     @DeleteMapping("/{id}/favourites/{pokemonId}")
-    public void deleteFavouritePokemon(@PathVariable Long id, @PathVariable Long pokemonId) {
-        userService.deleteFavourite(id, pokemonId);
+    public void deleteFavouritePokemon(@PathVariable Long userId, @RequestBody Pokemon pokemon) {
+        userService.deleteFavouritePokemon(pokemon, userId);
     }
 
 //    @GetMapping("/me")
