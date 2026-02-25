@@ -20,7 +20,7 @@ public class SpringSqlApiApplication {
 			@Override
 			public void addCorsMappings(@NonNull CorsRegistry registry) {
 				registry.addMapping("/**").allowedOrigins("http://localhost:5173",
-						"https://pokemon-collector-frontend-production.up.railway.app/");
+						"https://pokemon-collector-frontend-production.up.railway.app/", "https://pokemon-collector-production-3913.up.railway.app/api/users/me");
 			}
 		};
 	}
