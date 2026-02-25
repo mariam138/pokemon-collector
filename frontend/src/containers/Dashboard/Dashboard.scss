@@ -1,0 +1,12 @@
+@import "./../../variables";
+
+.Dashboard {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    background-color: $senary-color;
+
+    width: 100%;
+    
+}

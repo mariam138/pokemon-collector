@@ -1,1 +1,2 @@
-# pokemon-collector
+This is a readme for the repo
+
