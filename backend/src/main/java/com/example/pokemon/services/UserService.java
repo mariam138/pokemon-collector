@@ -39,6 +39,14 @@ public class UserService {
         return mapToResponse(saved);
     }
 
+    //READ on GET request
+    public User findUserById(Long id) {
+        return userRepo.findById(id).orElseThrow(
+                () -> new EntityNotFoundException(String.format(
+                        "User with ID: %d, was not found", id
+                )));
+    }
+
 //    private User getMe(OAuth2User principal) {
 //        if (principal == null) {
 //            throw new IllegalStateException("Not authenticated.");
