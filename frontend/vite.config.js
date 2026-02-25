@@ -1,8 +1,9 @@
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
 // https://vite.dev/config/
+// Use VITE_BASE_PATH for deployment: "/" for Railway (root), "/Pokemon-Collector-Front-End/" for GitHub Pages
 export default defineConfig({
-	base: "/Pokemon-Collector-Front-End/",
-	plugins: [react()],
+    base: '/',
+    plugins: [react()],
 });
