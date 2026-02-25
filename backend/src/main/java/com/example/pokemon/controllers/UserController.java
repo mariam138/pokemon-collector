@@ -1,5 +1,6 @@
 package com.example.pokemon.controllers;
 
+import com.example.pokemon.DTOs.CreateUserRequest;
 import com.example.pokemon.DTOs.UpdateUserRequest;
 import com.example.pokemon.DTOs.UserResponse;
 import com.example.pokemon.models.Pokemon;
