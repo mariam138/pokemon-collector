@@ -22,7 +22,7 @@ function App() {
     const checkAuth = async () => {
       try {
         const res = await fetch(
-          "https://pokemon-collector-backend-production.up.railway.app/api/users/me",
+          "https://pokemon-collector-production-3913.up.railway.app/api/users/me",
           { credentials: "include" },
         );
 

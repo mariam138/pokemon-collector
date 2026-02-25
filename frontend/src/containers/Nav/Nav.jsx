@@ -6,7 +6,7 @@ const Nav = () => {
     const handleLogout = async () => {
         try {
             await fetch(
-                'https://pokemon-collector-backend-production.up.railway.app/oauth2/authorization/logout',
+                'https://pokemon-collector-production-3913.up.railway.app/oauth2/authorization/logout',
                 {
                     method: 'POST',
                     credentials: 'include',
