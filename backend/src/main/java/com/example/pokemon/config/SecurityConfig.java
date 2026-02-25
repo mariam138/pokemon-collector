@@ -30,11 +30,11 @@ public class SecurityConfig {
                             if (req.getRequestURI().startsWith("/api/")) {
                                 res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
                             } else {
-                                res.sendRedirect("https://mark-grayson1.github.io/Pokemon-Collector-Front-End/");
+                                res.sendRedirect("https://pokemon-collector-frontend-production.up.railway.app/");
                             }
                         }))
                 .oauth2Login(oauth -> oauth
-                        .defaultSuccessUrl("https://mark-grayson1.github.io/Pokemon-Collector-Front-End/dashboard",
+                        .defaultSuccessUrl("https://pokemon-collector-frontend-production.up.railway.app/dashboard",
                                 true))
                 .logout(logout -> logout
                         .logoutUrl("/logout")
@@ -52,7 +52,7 @@ public class SecurityConfig {
         CorsConfiguration config = new CorsConfiguration();
 
         config.setAllowedOrigins(List.of("http://localhost:5173",
-                "https://mark-grayson1.github.io"));
+                "https://pokemon-collector-frontend-production.up.railway.app/"));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
