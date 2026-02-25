@@ -47,6 +47,19 @@ public class UserService {
                 )));
     }
 
+    // GET all users
+    public List<UserResponse> findAllUsers() {
+        return userRepo.findAll().stream().map(this::mapToResponse).toList();
+    }
+
+    // DELETE user by id
+    public void deleteUser(Long id) {
+        if(!userRepo.existsById(id)) {
+            throw new EntityNotFoundException(String.format(
+                    "User with ID: %d, was not found", id));
+        }
+        userRepo.deleteById(id);
+    }
 //    private User getMe(OAuth2User principal) {
 //        if (principal == null) {
 //            throw new IllegalStateException("Not authenticated.");
