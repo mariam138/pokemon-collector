@@ -1,5 +1,6 @@
 package com.example.pokemon.services;
 
+import com.example.pokemon.DTOs.CreatePokemonRequest;
 import com.example.pokemon.DTOs.CreateUserRequest;
 import com.example.pokemon.DTOs.UpdateUserRequest;
 import com.example.pokemon.DTOs.UserResponse;
@@ -8,6 +9,7 @@ import com.example.pokemon.models.User;
 import com.example.pokemon.repositories.PokemonRepository;
 import com.example.pokemon.repositories.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
@@ -146,17 +148,31 @@ public class UserService {
 //        }
 //    }
 
-    public void addFavouritePokemons(Pokemon pokemon, Long userId) {
+    @Transactional
+    public void addFavouritePokemons(List<CreatePokemonRequest> pokemonRequests, Long userId) {
         User user = userRepo.findById(userId).orElseThrow(() -> new EntityNotFoundException(String.format(
                 "User with ID: %d, was not found", userId)));
 
-        // Save pokemon if it doesn't already exist
-        if (pokemon.getId() != null && !pokemonRepo.existsById(pokemon.getId())) {
-            pokemonRepo.save(pokemon);
-        }
+        // Map over list of pokemon requests and create new pokemon objects for each request
+        List<Pokemon> pokemons = pokemonRequests.stream()
+                .map(req -> {
+                    Pokemon pokemon = new Pokemon();
+                    pokemon.setId(req.getPokemonId());
+                    pokemon.setName(req.getPokemonName());
+                    pokemon.setAbility(req.getAbility());
+                    pokemon.setBaseExperience(req.getBaseExperience());
+                    pokemon.setHeight(req.getBaseExperience());
+                    pokemon.setWeight(req.getBaseExperience());
+                    pokemon.setTypeOne(req.getTypeOne());
+                    pokemon.setTypeTwo(req.getTypeTwo());
+                    return pokemon;
+
+                }).toList();
+
+        pokemonRepo.saveAll(pokemons);
 
         // Add pokemon to user's favourites
-        user.getFavouritePokemons().add(pokemon);
+        user.getFavouritePokemons().addAll(pokemons);
         userRepo.save(user);
     }
 //
