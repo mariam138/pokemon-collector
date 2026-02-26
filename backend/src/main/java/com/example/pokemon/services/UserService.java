@@ -12,7 +12,10 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -173,30 +176,40 @@ public class UserService {
 
     @Transactional
     public void addFavouritePokemons(List<CreatePokemonRequest> pokemonRequests, Long userId) {
-        User user = userRepo.findById(userId).orElseThrow(() -> new EntityNotFoundException(String.format(
-                "User with ID: %d, was not found", userId)));
 
-        // Map over list of pokemon requests and create new pokemon objects for each
-        // request
-        List<Pokemon> pokemons = pokemonRequests.stream()
+        User user = userRepo.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException(
+                        String.format("User with ID: %d, was not found", userId)));
+
+        // Get existing favourite Pokemon IDs
+        Set<Long> existingPokemonIds = user.getFavouritePokemons()
+                .stream()
+                .map(Pokemon::getId)
+                .collect(Collectors.toSet());
+
+        // Remove duplicates inside request list
+        Set<Long> seenIds = new HashSet<>();
+
+        List<Pokemon> pokemonsToAdd = pokemonRequests.stream()
+                .filter(req -> seenIds.add(req.getPokemonId())) // removes duplicates in request
+                .filter(req -> !existingPokemonIds.contains(req.getPokemonId())) // removes already saved ones
                 .map(req -> {
                     Pokemon pokemon = new Pokemon();
                     pokemon.setId(req.getPokemonId());
                     pokemon.setName(req.getPokemonName());
                     pokemon.setAbility(req.getAbility());
                     pokemon.setBaseExperience(req.getBaseExperience());
-                    pokemon.setHeight(req.getBaseExperience());
-                    pokemon.setWeight(req.getBaseExperience());
+                    pokemon.setHeight(req.getHeight());
+                    pokemon.setWeight(req.getWeight());
                     pokemon.setTypeOne(req.getTypeOne());
                     pokemon.setTypeTwo(req.getTypeTwo());
                     return pokemon;
+                })
+                .toList();
 
-                }).toList();
+        pokemonRepo.saveAll(pokemonsToAdd);
 
-        pokemonRepo.saveAll(pokemons);
-
-        // Add pokemon to user's favourites
-        user.getFavouritePokemons().addAll(pokemons);
+        user.getFavouritePokemons().addAll(pokemonsToAdd);
         userRepo.save(user);
     }
     //
