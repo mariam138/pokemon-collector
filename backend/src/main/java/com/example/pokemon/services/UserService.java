@@ -97,24 +97,9 @@ public class UserService {
                 .orElseThrow(() -> new EntityNotFoundException(
                         String.format("User with ID: %d, was not found", userId)));
 
-        // Get existing favourite Pokemon IDs
-        Set<Long> existingPokemonIds = user.getFavouritePokemons()
-                .stream()
-                .map(Pokemon::getId)
-                .collect(Collectors.toSet());
-
-        // Remove duplicates inside request list
-        Set<Long> seenIds = new HashSet<>();
-
         for (CreatePokemonRequest req : pokemonRequests) {
 
             Long pokemonId = req.getPokemonId();
-
-            // Skip duplicate in same request
-            if (!seenIds.add(pokemonId)) continue;
-
-            // Skip if user already has it
-            if (existingPokemonIds.contains(pokemonId)) continue;
 
             // Check if Pokémon already exists in DB
             Pokemon pokemon = pokemonRepo.findById(pokemonId)
