@@ -23,18 +23,6 @@ const LoginForm = ({ handleLogin, goToDashboard }) => {
 
       <form className="login-form__form">
         <div className="login-form__group">
-          <label className="login-form__label" htmlFor="email">
-            Email:
-          </label>
-          <input
-            className="login-form__input"
-            type="email"
-            id="email"
-            autoComplete="off"
-            placeholder="Enter your email"
-            value={email}
-            onChange={handleEmailChange}
-          />
           <label className="login-form__label" htmlFor="name">
             Name:
           </label>
@@ -46,6 +34,18 @@ const LoginForm = ({ handleLogin, goToDashboard }) => {
             placeholder="Enter your name:"
             value={name}
             onChange={handleNameChange}
+          />
+          <label className="login-form__label" htmlFor="email">
+            Email:
+          </label>
+          <input
+            className="login-form__input"
+            type="email"
+            id="email"
+            autoComplete="off"
+            placeholder="Enter your email"
+            value={email}
+            onChange={handleEmailChange}
           />
           <button
             type="submit"
