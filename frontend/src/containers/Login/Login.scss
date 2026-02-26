@@ -1,9 +1,10 @@
 @import "./../../variables";
 
 .login-page {
+  font-family: "Courier New", Courier, monospace;
+  font-weight: 700;
   min-height: 100vh;
   width: 100%;
-
   display: flex;
   justify-content: center;
   align-items: center;
