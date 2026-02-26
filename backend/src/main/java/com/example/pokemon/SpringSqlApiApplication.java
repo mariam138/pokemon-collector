@@ -19,10 +19,12 @@ public class SpringSqlApiApplication {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(@NonNull CorsRegistry registry) {
-				registry.addMapping("/**").allowedOrigins( "http://localhost:5173",
-                        "https://pokemon-collector-frontend-production.up.railway.app") .allowedMethods("*")
-                    .allowedHeaders("*")
-                    .allowCredentials(true);
+				registry.addMapping("/**").allowedOrigins(
+								"http://localhost:5173",
+								"https://pokemon-collector-frontend-production.up.railway.app")
+						.allowedMethods("*")
+						.allowedHeaders("*")
+						.allowCredentials(true);
 			}
 		};
 	}

@@ -13,45 +13,14 @@ import java.util.List;
 
 @Configuration
 public class SecurityConfig {
-
-    // @Bean
-    // SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-    // return http
-    // .cors(cors -> {
-    // })
-    // .csrf(csrf -> csrf.disable())
-    // .authorizeHttpRequests(auth -> auth
-    // .requestMatchers("/", "/error", "/login/**", "/oauth2/**").permitAll()
-    // .requestMatchers("/api/**").authenticated()
-    // .anyRequest().authenticated())
-
-    // .exceptionHandling(e -> e
-    // .authenticationEntryPoint((req, res, ex) -> {
-    // if (req.getRequestURI().startsWith("/api/")) {
-    // res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-    // } else {
-    // res.sendRedirect("https://pokemon-collector-frontend-production.up.railway.app/");
-    // }
-    // }))
-    // .oauth2Login(oauth -> oauth
-    // .defaultSuccessUrl("https://pokemon-collector-frontend-production.up.railway.app/dashboard",
-    // true))
-    // .logout(logout -> logout
-    // .logoutUrl("/logout")
-    // .logoutSuccessHandler((request, response, authentication) ->
-    // response.setStatus(HttpServletResponse.SC_OK))
-    // .invalidateHttpSession(true)
-    // .clearAuthentication(true)
-    // .deleteCookies("JSESSIONID", "SESSION"))
-    // .build();
-    // }
-
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
 
-        config.setAllowedOrigins(List.of("http://localhost:*",
-                "https://pokemon-collector-frontend-production.up.railway.app"));
+        config.setAllowedOrigins(List.of(
+                "http://localhost:5173",
+                "https://pokemon-collector-frontend-production.up.railway.app"
+        ));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
