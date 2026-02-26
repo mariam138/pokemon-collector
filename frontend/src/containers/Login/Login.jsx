@@ -1,9 +1,6 @@
-const Login = () => {
-    const loginWithGoogle = () => {
-        window.location.href =
-            'https://pokemon-collector-production-3913.up.railway.app/oauth2/authorization/google';
-    };
+import LoginForm from './LoginForm';
 
+const Login = ({ handleLogin }) => {
     const loginWithGithub = () => {
         window.location.href =
             'https://pokemon-collector-production-3913.up.railway.app/oauth2/authorization/github';
@@ -16,17 +13,13 @@ const Login = () => {
 
             <div style={{ marginTop: '20px' }}>
                 <button
-                    onClick={loginWithGoogle}
-                    style={{ marginRight: '10px', padding: '10px 20px' }}>
-                    Login with Google
-                </button>
-
-                <button
                     onClick={loginWithGithub}
                     style={{ padding: '10px 20px' }}>
                     Login with GitHub
                 </button>
             </div>
+
+            <LoginForm handleLogin={handleLogin} />
         </div>
     );
 };
