@@ -3,24 +3,23 @@
 .login-form {
   margin: 0 auto;
   margin-top: 80px;
-  text-align: center;
+  text-align: start;
   background-color: white;
-  padding: 40px;
+  padding: 60px;
   border-radius: 10px;
   box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.065);
   width: calc(95% - 80px);
   max-width: 500px;
 
-  &__title {
-    text-align: center;
-    font-weight: bold;
-    font-size: x-large;
-  }
-
-  &__group {
-    width: 100%;
+  &__form {
     display: flex;
     flex-direction: column;
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 30px;
   }
 
   &__label {
@@ -35,14 +34,13 @@
   &__input {
     padding: 10px;
     margin-top: 5px;
-    border-color: lightgray;
   }
 
   &__button {
     margin-left: auto;
     margin-right: auto;
     font-size: 16px;
-    margin-top: 32px;
+    margin-top: 26px;
     background-color: blue;
     padding: 5px;
     border-radius: 15px;
