@@ -7,7 +7,9 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "pokemons", uniqueConstraints = @UniqueConstraint(columnNames = "pokemon_id"))
@@ -31,7 +33,7 @@ public class Pokemon {
 
     @JsonIgnore
     @ManyToMany(mappedBy = "favouritePokemons")
-    private List<User> users = new ArrayList<>();
+    private Set<User> users = new HashSet<>();
 
     public Pokemon() {
     }
@@ -97,19 +99,20 @@ public class Pokemon {
         this.typeOne = typeOne;
     }
 
+    @Nullable
     public String getTypeTwo() {
         return typeTwo;
     }
 
-    public void setTypeTwo(String typeTwo) {
+    public void setTypeTwo(@Nullable String typeTwo) {
         this.typeTwo = typeTwo;
     }
 
-    public List<User> getUsers() {
+    public Set<User> getUsers() {
         return users;
     }
 
-    public void setUsers(List<User> users) {
+    public void setUsers(Set<User> users) {
         this.users = users;
     }
 }
