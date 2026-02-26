@@ -1,6 +1,7 @@
 package com.example.pokemon.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
@@ -25,6 +26,7 @@ public class Pokemon {
     private Long height;
     private Long weight;
     private String typeOne;
+    @Nullable
     private String typeTwo;
 
     @JsonIgnore
