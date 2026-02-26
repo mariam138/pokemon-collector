@@ -2,6 +2,7 @@ package com.example.pokemon.services;
 
 import com.example.pokemon.DTOs.CreatePokemonRequest;
 import com.example.pokemon.DTOs.CreateUserRequest;
+import com.example.pokemon.DTOs.LoginRequest;
 import com.example.pokemon.DTOs.UpdateUserRequest;
 import com.example.pokemon.DTOs.UserResponse;
 import com.example.pokemon.models.Pokemon;
@@ -32,7 +33,7 @@ public class UserService {
 
     // Create new user on POST request
     public UserResponse addUser(CreateUserRequest newUserRequest) {
-        if (userRepo.findByEmail(newUserRequest.getEmail())) {
+        if (userRepo.findByEmail(newUserRequest.getEmail()) != null) {
             throw new IllegalArgumentException("Email already in use: " + newUserRequest.getEmail());
         }
         User user = new User();
@@ -40,6 +41,14 @@ public class UserService {
         user.setEmail(newUserRequest.getEmail());
         User saved = userRepo.save(user);
         return mapToResponse(saved);
+    }
+
+    public UserResponse login(LoginRequest loginRequest) {
+        User user = userRepo.findByEmail(loginRequest.getEmail());
+        if (user == null) {
+            userRepo.save(user);
+        }
+        return mapToResponse(user);
     }
 
     // READ on GET request

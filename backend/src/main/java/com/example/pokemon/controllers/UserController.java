@@ -2,6 +2,7 @@ package com.example.pokemon.controllers;
 
 import com.example.pokemon.DTOs.CreatePokemonRequest;
 import com.example.pokemon.DTOs.CreateUserRequest;
+import com.example.pokemon.DTOs.LoginRequest;
 import com.example.pokemon.DTOs.UpdateUserRequest;
 import com.example.pokemon.DTOs.UserResponse;
 import com.example.pokemon.models.Pokemon;
@@ -37,6 +38,11 @@ public class UserController {
         return userService.findUserById(id);
     }
 
+    @PostMapping("/login")
+    public UserResponse login(@RequestBody LoginRequest loginRequest) {
+        return userService.login(loginRequest);
+    }
+
     @PostMapping
     public UserResponse createUser(@Validated @RequestBody CreateUserRequest newUserRequest) {
         return userService.addUser(newUserRequest);
@@ -47,112 +53,116 @@ public class UserController {
         userService.deleteUser(id);
     }
 
-    //    @GetMapping("/me/favourites")
-//    public ResponseEntity<List<Long>> getMyFavourites(@AuthenticationPrincipal OAuth2User principal) {
-//        if (principal == null) {
-//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-//        }
-//        return ResponseEntity.ok(userService.getMyFavouritePokemonIds(principal));
-//    }
+    // @GetMapping("/me/favourites")
+    // public ResponseEntity<List<Long>> getMyFavourites(@AuthenticationPrincipal
+    // OAuth2User principal) {
+    // if (principal == null) {
+    // return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    // }
+    // return ResponseEntity.ok(userService.getMyFavouritePokemonIds(principal));
+    // }
     @GetMapping("/{id}/favourites")
     public List<Pokemon> getFavouritePokemons(@PathVariable Long id) {
         return userService.findFavouritePokemons(id);
     }
-//
-//    @PostMapping("/me/favourites/{pokemonId}")
-//    public ResponseEntity<Void> addMyFavourite(
-//            @AuthenticationPrincipal OAuth2User principal,
-//            @PathVariable Long pokemonId
-//    ) {
-//        if (principal == null) {
-//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-//        }
-//        userService.addMyFavouritePokemon(principal, pokemonId);
-//        return ResponseEntity.ok().build();
-//    }
+    //
+    // @PostMapping("/me/favourites/{pokemonId}")
+    // public ResponseEntity<Void> addMyFavourite(
+    // @AuthenticationPrincipal OAuth2User principal,
+    // @PathVariable Long pokemonId
+    // ) {
+    // if (principal == null) {
+    // return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    // }
+    // userService.addMyFavouritePokemon(principal, pokemonId);
+    // return ResponseEntity.ok().build();
+    // }
 
     @PostMapping("/{userId}/favourites")
     public List<Pokemon> addFavouritePokemons(@PathVariable Long userId,
-                                              @RequestBody List<CreatePokemonRequest> pokemonRequests) {
+            @RequestBody List<CreatePokemonRequest> pokemonRequests) {
         userService.addFavouritePokemons(pokemonRequests, userId);
         // Returns updated list of favourite pokemon
         return userService.findFavouritePokemons(userId);
     }
-//
-//    @DeleteMapping("/me/favourites/{pokemonId}")
-//    public ResponseEntity<Void> removeMyFavourite(
-//            @AuthenticationPrincipal OAuth2User principal,
-//            @PathVariable Long pokemonId
-//    ) {
-//        if (principal == null) {
-//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-//        }
-//        userService.removeMyFavouritePokemon(principal, pokemonId);
-//        return ResponseEntity.noContent().build();
-//    }
+    //
+    // @DeleteMapping("/me/favourites/{pokemonId}")
+    // public ResponseEntity<Void> removeMyFavourite(
+    // @AuthenticationPrincipal OAuth2User principal,
+    // @PathVariable Long pokemonId
+    // ) {
+    // if (principal == null) {
+    // return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    // }
+    // userService.removeMyFavouritePokemon(principal, pokemonId);
+    // return ResponseEntity.noContent().build();
+    // }
 
     @DeleteMapping("/{id}/favourites/{pokemonId}")
     public void deleteFavouritePokemon(@PathVariable Long userId, @RequestBody Pokemon pokemon) {
         userService.deleteFavouritePokemon(pokemon, userId);
     }
 
-//    @GetMapping("/me")
-//    public ResponseEntity<UserResponse> getMe(@AuthenticationPrincipal OAuth2User principal) {
-//        if (principal == null) {
-//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-//        }
-//        return ResponseEntity.ok(userService.getOrCreateFromOAuth(principal));
-//    }
-//
-//    @PutMapping("/me")
-//    public ResponseEntity<UserResponse> updateMe(
-//            @AuthenticationPrincipal OAuth2User principal,
-//            @Valid @RequestBody UpdateUserRequest request
-//    ) {
-//        if (principal == null) {
-//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-//        }
-//        return ResponseEntity.ok(userService.updateMyName(principal, request));
-//    }
-//
-//    @DeleteMapping("/me")
-//    public ResponseEntity<Void> deleteMe(@AuthenticationPrincipal OAuth2User principal) {
-//        if (principal == null) {
-//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-//        }
-//        userService.deleteMe(principal);
-//        return ResponseEntity.noContent().build();
-//    }
-//
-//    @GetMapping("/me/favourites")
-//    public ResponseEntity<List<Long>> getMyFavourites(@AuthenticationPrincipal OAuth2User principal) {
-//        if (principal == null) {
-//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-//        }
-//        return ResponseEntity.ok(userService.getMyFavouritePokemonIds(principal));
-//    }
-//
-//    @PostMapping("/me/favourites/{pokemonId}")
-//    public ResponseEntity<Void> addMyFavourite(
-//            @AuthenticationPrincipal OAuth2User principal,
-//            @PathVariable Long pokemonId
-//    ) {
-//        if (principal == null) {
-//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-//        }
-//        userService.addMyFavouritePokemon(principal, pokemonId);
-//        return ResponseEntity.ok().build();
-//    }
-//
-//    @DeleteMapping("/me/favourites/{pokemonId}")
-//    public ResponseEntity<Void> removeMyFavourite(
-//            @AuthenticationPrincipal OAuth2User principal,
-//            @PathVariable Long pokemonId
-//    ) {
-//        if (principal == null) {
-//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-//        }
-//        userService.removeMyFavouritePokemon(principal, pokemonId);
-//        return ResponseEntity.noContent().build();
-//    }
+    // @GetMapping("/me")
+    // public ResponseEntity<UserResponse> getMe(@AuthenticationPrincipal OAuth2User
+    // principal) {
+    // if (principal == null) {
+    // return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    // }
+    // return ResponseEntity.ok(userService.getOrCreateFromOAuth(principal));
+    // }
+    //
+    // @PutMapping("/me")
+    // public ResponseEntity<UserResponse> updateMe(
+    // @AuthenticationPrincipal OAuth2User principal,
+    // @Valid @RequestBody UpdateUserRequest request
+    // ) {
+    // if (principal == null) {
+    // return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    // }
+    // return ResponseEntity.ok(userService.updateMyName(principal, request));
+    // }
+    //
+    // @DeleteMapping("/me")
+    // public ResponseEntity<Void> deleteMe(@AuthenticationPrincipal OAuth2User
+    // principal) {
+    // if (principal == null) {
+    // return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    // }
+    // userService.deleteMe(principal);
+    // return ResponseEntity.noContent().build();
+    // }
+    //
+    // @GetMapping("/me/favourites")
+    // public ResponseEntity<List<Long>> getMyFavourites(@AuthenticationPrincipal
+    // OAuth2User principal) {
+    // if (principal == null) {
+    // return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    // }
+    // return ResponseEntity.ok(userService.getMyFavouritePokemonIds(principal));
+    // }
+    //
+    // @PostMapping("/me/favourites/{pokemonId}")
+    // public ResponseEntity<Void> addMyFavourite(
+    // @AuthenticationPrincipal OAuth2User principal,
+    // @PathVariable Long pokemonId
+    // ) {
+    // if (principal == null) {
+    // return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    // }
+    // userService.addMyFavouritePokemon(principal, pokemonId);
+    // return ResponseEntity.ok().build();
+    // }
+    //
+    // @DeleteMapping("/me/favourites/{pokemonId}")
+    // public ResponseEntity<Void> removeMyFavourite(
+    // @AuthenticationPrincipal OAuth2User principal,
+    // @PathVariable Long pokemonId
+    // ) {
+    // if (principal == null) {
+    // return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    // }
+    // userService.removeMyFavouritePokemon(principal, pokemonId);
+    // return ResponseEntity.noContent().build();
+    // }
 }
