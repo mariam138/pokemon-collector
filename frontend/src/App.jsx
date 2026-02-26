@@ -8,6 +8,7 @@ import { Routes, Route } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
 function App() {
+    const [user, setUser] = useState(null);
     const allPokemonDataUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=151';
 
     const [pokemonData, setPokemonData] = useState([]);
@@ -28,7 +29,7 @@ function App() {
         }
         const data = await response.json();
         console.log(data);
-        return data;
+        setUser(data);
     };
 
     useEffect(() => {
@@ -55,12 +56,11 @@ function App() {
 
     return (
         <main className="main">
-            <Nav />
+            {user && <Nav />}
 
-            {/* Clarify Login pgae and landing page */}
-            {/* user arrive on URL/ and see login buttons */}
-            {/* Once logged in user sees dashboard */}
-            {/* Fix the Auth logic to provide correct URL build up for this flow */}
+            {/* Once user is logged in, they see the dashboard */}
+            {/* If user is not logged in, they see the login page */}
+            {/* Add correct logout process -> remove user from state */}
 
             <Routes>
                 <Route path="/" element={<Login handleLogin={handleLogin} />} />
