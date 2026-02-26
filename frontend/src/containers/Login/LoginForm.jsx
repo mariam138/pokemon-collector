@@ -2,7 +2,7 @@ import React from 'react';
 import './LoginForm.css';
 import { useState } from 'react';
 
-const LoginForm = ({ handleLogin }) => {
+const LoginForm = ({ handleLogin, goToDashboard }) => {
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
 
@@ -14,8 +14,10 @@ const LoginForm = ({ handleLogin }) => {
     };
 
     const handleSubmit = (e) => {
+        goToDashboard();
         e.preventDefault();
         handleLogin(email, name);
+        
     };
     return (
         <div className="addUser">

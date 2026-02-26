@@ -12,6 +12,13 @@
   margin: 10px;
   color: $duodenary-color;
 
+  &_header {
+    display: flex;
+    justify-content: center;
+    font-size: 1.5em;
+    margin-bottom: 10px;
+  }
+
   &_image {
     display: flex;
     align-items: center;

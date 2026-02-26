@@ -1,6 +1,6 @@
 import LoginForm from './LoginForm';
 
-const Login = ({ handleLogin }) => {
+const Login = ({ handleLogin, goToDashboard }) => {
     const loginWithGithub = () => {
         window.location.href =
             'https://pokemon-collector-production-3913.up.railway.app/oauth2/authorization/github';
@@ -19,7 +19,7 @@ const Login = ({ handleLogin }) => {
                 </button>
             </div>
 
-            <LoginForm handleLogin={handleLogin} />
+            <LoginForm handleLogin={handleLogin} goToDashboard={goToDashboard} />
         </div>
     );
 };

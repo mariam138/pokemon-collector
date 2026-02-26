@@ -8,13 +8,21 @@ import { useState } from "react";
 
 const Dashboard = ({pokemonData}) => {
   
-  let favourites = [];
+  let pokemonArray = [];
+  if (pokemonData) {
+    pokemonData.forEach(pokemon => {
+      if (pokemon.isChecked) {  
+        pokemonArray.push(pokemon);
+      } 
+    })
+  };
+  
   
 
   return (
     <div className="Dashboard">
         {pokemonData? pokemonData.map((pokemon) => {
-          return <PokemonCard key={pokemon.id} pokemon={pokemon}/>
+          return <PokemonCard pokemonArray={pokemonArray} key={pokemon.id} pokemon={pokemon}/>
         }) : <p>Loading...</p>}
     </div>
   )

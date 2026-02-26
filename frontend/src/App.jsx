@@ -4,7 +4,7 @@ import Dashboard from './containers/Dashboard/Dashboard';
 import Selected from './containers/Selected/Selected';
 import Login from './containers/Login/Login';
 import { getOnlyUrl, cleanPokemonData } from './functions';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
 function App() {
@@ -54,22 +54,32 @@ function App() {
         getPokemons();
     }, []);
 
+    const navigate = useNavigate();
+
+    const goToDashboard = () => {
+        navigate("/dashboard");
+    };
+
+    const goBackToLogin = () => {
+        navigate("/");
+    };
+
     return (
         <main className="main">
-            {user && <Nav />}
+            {user && <Nav goBackToLogin={goBackToLogin} goToDashboard={goToDashboard} />}
 
             {/* Once user is logged in, they see the dashboard */}
             {/* If user is not logged in, they see the login page */}
             {/* Add correct logout process -> remove user from state */}
 
             <Routes>
-                <Route path="/" element={<Login handleLogin={handleLogin} />} />
+                <Route path="/" element={<Login goToDashboard={goToDashboard} handleLogin={handleLogin} />} />
                 <Route
                     path="/dashboard"
                     element={<Dashboard pokemonData={pokemonData} />}
                 />
                 <Route path="/selected" element={<Selected />} />
-                <Route path="*" element={<Login />} />
+                <Route path="*" element={<Login goToDashboard={goToDashboard} handleLogin={handleLogin}/>} />
             </Routes>
         </main>
     );

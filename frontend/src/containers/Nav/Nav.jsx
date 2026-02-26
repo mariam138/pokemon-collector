@@ -2,7 +2,7 @@ import NavButton from '../../components/NavButton/NavButton';
 import './Nav.scss';
 import { Link } from 'react-router-dom';
 
-const Nav = () => {
+const Nav = ({ }) => {
     const handleLogout = async () => {
         try {
             await fetch(
@@ -32,7 +32,7 @@ const Nav = () => {
             </section>
 
             <section className="Nav_menu">
-                <Link to="/">
+                <Link to="/dashboard">
                     <NavButton name="Dashboard" />
                 </Link>
 
@@ -40,13 +40,10 @@ const Nav = () => {
                     <NavButton name="Selected" />
                 </Link>
 
-                {}
-                <button
-                    type="button"
-                    onClick={handleLogout}
-                    className="Nav_logoutBtn">
-                    <NavButton name="Logout" />
-                </button>
+               
+                <Link className="Nav_logoutBtn" to="/" >
+                    <NavButton  name="Logout" />
+                </Link>
             </section>
 
             <section className="Nav_user">User</section>
