@@ -42,10 +42,21 @@ public class UserService {
     }
 
     public UserResponse login(LoginRequest loginRequest) {
+        if (loginRequest == null || loginRequest.getEmail() == null || loginRequest.getEmail().isBlank()) {
+            throw new IllegalArgumentException("Email must not be blank.");
+        }
+
         User user = userRepo.findByEmail(loginRequest.getEmail());
         if (user == null) {
-            userRepo.save(user);
+            user = new User();
+            user.setEmail(loginRequest.getEmail());
+
+            String name = loginRequest.getName();
+            user.setName(name != null && !name.isBlank() ? name : "Unknown");
+
+            user = userRepo.save(user);
         }
+
         return mapToResponse(user);
     }
 
