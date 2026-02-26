@@ -15,13 +15,20 @@ function App() {
     const API_URL =
         'https://pokemon-collector-backend-production-4148.up.railway.app/';
 
-    const handleLogin = async () => {
+    const handleLogin = async (email, name) => {
         const response = await fetch(`${API_URL}api/users/login`, {
             method: 'POST',
-            body: JSON.stringify({ email: 'test@test.com', name: 'John' }),
+            body: JSON.stringify({ email: email, name: name }),
+            headers: {
+                'Content-Type': 'application/json',
+            },
         });
+        if (!response.ok) {
+            throw new Error('Failed to login');
+        }
         const data = await response.json();
         console.log(data);
+        return data;
     };
 
     useEffect(() => {
