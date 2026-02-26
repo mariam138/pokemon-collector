@@ -1,14 +1,15 @@
 @import "./../../variables";
 
-.login {
-  width: 100%;
+.login-form {
   margin: 0 auto;
-  margin-top: 200px;
+  margin-top: 100px;
   text-align: center;
   background-color: white;
   padding: 40px;
   border-radius: 10px;
   box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.065);
+  width: calc(95% - 80px);
+  max-width: 500px;
 
   &__title {
     text-align: center;

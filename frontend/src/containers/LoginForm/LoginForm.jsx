@@ -1,4 +1,3 @@
-import React from "react";
 import "./LoginForm.scss";
 import { useState } from "react";
 
@@ -19,16 +18,16 @@ const LoginForm = ({ handleLogin, goToDashboard }) => {
     handleLogin(email, name);
   };
   return (
-    <div className="login">
-      <h3 className="login__title">Login</h3>
+    <div className="login-form">
+      <h3 className="login-form__title">Login</h3>
 
-      <form className="login__form">
-        <div className="login__group">
-          <label className="login__label" htmlFor="email">
+      <form className="login-form__form">
+        <div className="login-form__group">
+          <label className="login-form__label" htmlFor="email">
             Email:
           </label>
           <input
-            className="login__input"
+            className="login-form__input"
             type="email"
             id="email"
             autoComplete="off"
@@ -36,11 +35,11 @@ const LoginForm = ({ handleLogin, goToDashboard }) => {
             value={email}
             onChange={handleEmailChange}
           />
-          <label className="login__label" htmlFor="name">
+          <label className="login-form__label" htmlFor="name">
             Name:
           </label>
           <input
-            className="login__input"
+            className="login-form__input"
             type="text"
             id="name"
             autoComplete="off"
@@ -50,7 +49,7 @@ const LoginForm = ({ handleLogin, goToDashboard }) => {
           />
           <button
             type="submit"
-            className="login__button"
+            className="login-form__button"
             onClick={(e) => handleSubmit(e)}
           >
             Login
