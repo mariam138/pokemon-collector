@@ -3,7 +3,6 @@ package com.example.pokemon.services;
 import com.example.pokemon.DTOs.CreatePokemonRequest;
 import com.example.pokemon.DTOs.CreateUserRequest;
 import com.example.pokemon.DTOs.LoginRequest;
-import com.example.pokemon.DTOs.UpdateUserRequest;
 import com.example.pokemon.DTOs.UserResponse;
 import com.example.pokemon.models.Pokemon;
 import com.example.pokemon.models.User;
@@ -11,7 +10,6 @@ import com.example.pokemon.repositories.PokemonRepository;
 import com.example.pokemon.repositories.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -12,7 +12,8 @@ function App() {
 
     const [pokemonData, setPokemonData] = useState([]);
 
-    const API_URL = 'https://pokemon-collector-production-3913.up.railway.app/';
+    const API_URL =
+        'https://pokemon-collector-backend-production-4148.up.railway.app/';
 
     const handleLogin = async (email, name) => {
         const response = await fetch(`${API_URL}api/users/login`, {

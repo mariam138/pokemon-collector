@@ -3,16 +3,10 @@ package com.example.pokemon.controllers;
 import com.example.pokemon.DTOs.CreatePokemonRequest;
 import com.example.pokemon.DTOs.CreateUserRequest;
 import com.example.pokemon.DTOs.LoginRequest;
-import com.example.pokemon.DTOs.UpdateUserRequest;
 import com.example.pokemon.DTOs.UserResponse;
 import com.example.pokemon.models.Pokemon;
 import com.example.pokemon.models.User;
 import com.example.pokemon.services.UserService;
-import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
