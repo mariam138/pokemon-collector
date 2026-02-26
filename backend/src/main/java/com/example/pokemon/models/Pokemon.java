@@ -10,12 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "pokemons")
+@Table(name = "pokemons", uniqueConstraints = @UniqueConstraint(columnNames = "pokemon_id"))
 public class Pokemon {
 
     @Id
     @Positive
-    @Column(name = "pokemon_id", nullable = false)
+    @Column(name = "pokemon_id", nullable = false, unique = true)
     private Long id;
 
     @NotBlank
@@ -33,7 +33,8 @@ public class Pokemon {
     @ManyToMany(mappedBy = "favouritePokemons")
     private List<User> users = new ArrayList<>();
 
-    public Pokemon() {}
+    public Pokemon() {
+    }
 
     public Pokemon(Long id, String name) {
         this.id = id;
@@ -43,29 +44,72 @@ public class Pokemon {
     public Long getId() {
         return id;
     }
-    public void setId(Long id) {this.id = id;}
 
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public String getAbility() { return ability; }
-    public void setAbility(String ability) { this.ability = ability; }
+    public String getName() {
+        return name;
+    }
 
-    public Long getBaseExperience() { return baseExperience; }
-    public void setBaseExperience(Long baseExperience) { this.baseExperience = baseExperience; }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    public Long getHeight() { return height; }
-    public void setHeight(Long height) { this.height = height; }
+    public String getAbility() {
+        return ability;
+    }
 
-    public Long getWeight() { return weight; }
-    public void setWeight(Long weight) { this.weight = weight; }
+    public void setAbility(String ability) {
+        this.ability = ability;
+    }
 
-    public String getTypeOne() { return typeOne; }
-    public void setTypeOne(String typeOne) { this.typeOne = typeOne; }
+    public Long getBaseExperience() {
+        return baseExperience;
+    }
 
-    public String getTypeTwo() { return typeTwo; }
-    public void setTypeTwo(String typeTwo) { this.typeTwo = typeTwo; }
+    public void setBaseExperience(Long baseExperience) {
+        this.baseExperience = baseExperience;
+    }
 
-    public List<User> getUsers() { return users; }
-    public void setUsers(List<User> users) { this.users = users; }
+    public Long getHeight() {
+        return height;
+    }
+
+    public void setHeight(Long height) {
+        this.height = height;
+    }
+
+    public Long getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Long weight) {
+        this.weight = weight;
+    }
+
+    public String getTypeOne() {
+        return typeOne;
+    }
+
+    public void setTypeOne(String typeOne) {
+        this.typeOne = typeOne;
+    }
+
+    public String getTypeTwo() {
+        return typeTwo;
+    }
+
+    public void setTypeTwo(String typeTwo) {
+        this.typeTwo = typeTwo;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
 }
