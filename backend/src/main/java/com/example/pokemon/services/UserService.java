@@ -106,26 +106,33 @@ public class UserService {
         // Remove duplicates inside request list
         Set<Long> seenIds = new HashSet<>();
 
-        List<Pokemon> pokemonsToAdd = pokemonRequests.stream()
-                .filter(req -> seenIds.add(req.getPokemonId())) // removes duplicates in request
-                .filter(req -> !existingPokemonIds.contains(req.getPokemonId())) // removes already saved ones
-                .map(req -> {
-                    Pokemon pokemon = new Pokemon();
-                    pokemon.setId(req.getPokemonId());
-                    pokemon.setName(req.getPokemonName());
-                    pokemon.setAbility(req.getAbility());
-                    pokemon.setBaseExperience(req.getBaseExperience());
-                    pokemon.setHeight(req.getHeight());
-                    pokemon.setWeight(req.getWeight());
-                    pokemon.setTypeOne(req.getTypeOne());
-                    pokemon.setTypeTwo(req.getTypeTwo());
-                    return pokemon;
-                })
-                .toList();
+        for (CreatePokemonRequest req : pokemonRequests) {
 
-        pokemonRepo.saveAll(pokemonsToAdd);
+            Long pokemonId = req.getPokemonId();
 
-        user.getFavouritePokemons().addAll(pokemonsToAdd);
+            // Skip duplicate in same request
+            if (!seenIds.add(pokemonId)) continue;
+
+            // Skip if user already has it
+            if (existingPokemonIds.contains(pokemonId)) continue;
+
+            // Check if Pokémon already exists in DB
+            Pokemon pokemon = pokemonRepo.findById(pokemonId)
+                    .orElseGet(() -> {
+                        Pokemon newPokemon = new Pokemon();
+                        newPokemon.setId(req.getPokemonId());
+                        newPokemon.setName(req.getPokemonName());
+                        newPokemon.setAbility(req.getAbility());
+                        newPokemon.setBaseExperience(req.getBaseExperience());
+                        newPokemon.setHeight(req.getHeight());
+                        newPokemon.setWeight(req.getWeight());
+                        newPokemon.setTypeOne(req.getTypeOne());
+                        newPokemon.setTypeTwo(req.getTypeTwo());
+                        return pokemonRepo.save(newPokemon);
+                    });
+
+            user.getFavouritePokemons().add(pokemon);
+        }
         userRepo.save(user);
     }
 
