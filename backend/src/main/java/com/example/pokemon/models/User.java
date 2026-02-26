@@ -5,7 +5,9 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -37,13 +39,17 @@ public class User {
             )
     )
 
-    private List<Pokemon> favouritePokemons = new ArrayList<>();
+    private Set<Pokemon> favouritePokemons = new HashSet<>();
 
     public User() {
     }
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -62,11 +68,11 @@ public class User {
         this.email = email;
     }
 
-    public List<Pokemon> getFavouritePokemons() {
+    public Set<Pokemon> getFavouritePokemons() {
         return favouritePokemons;
     }
 
-    public void setFavouritePokemons(List<Pokemon> favouritePokemons) {
+    public void setFavouritePokemons(Set<Pokemon> favouritePokemons) {
         this.favouritePokemons = favouritePokemons;
     }
 }
