@@ -85,7 +85,7 @@ function App() {
                     path="/dashboard"
                     element={<Dashboard pokemonData={pokemonData} user={user} />}
                 />
-                <Route path="/selected" element={<Selected />} />
+                <Route path="/selected" element={<Selected user={user} />} />
                 <Route path="*" element={<Login goToDashboard={goToDashboard} handleLogin={handleLogin}/>} />
             </Routes>
         </main>
