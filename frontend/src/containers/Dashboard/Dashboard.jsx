@@ -23,11 +23,9 @@ const [favouritePokemons, setFavouritePokemons] = useState([]);
   // Do API call to favouritePokemons endpoint to check which pokemons are already in the favourites list
   // Render the pokemons cards with the checkbox checked if the pokemon is in the favourites list
 
-
-
   const handleSelectPokemon = (pokemon) => {
     setSelectedPokemon([...selectedPokemon, pokemon]);
-    console.log("user:", user);
+    console.log("user in handle slect pokemon:", user);
     preparePokemonDataToBackend( selectedPokemon);
   };
 
@@ -35,7 +33,7 @@ const [favouritePokemons, setFavouritePokemons] = useState([]);
     setSelectedPokemon(selectedPokemon.filter((p) => p.id !== pokemon.id));
   };
 
-  //"https://pokemon-collector-backend-production-4148.up.railway.app/api/users/1/favourites"
+  //"https://pokemon-collector-backend-production-4148.up.railway.app/api/users/41/favourites"
   //"https://pokemon-collector-backend-production-4148.up.railway.app/api/users/1/favourites
   //  "https://pokemon-collector-backend-production-4148.up.railway.app/
 

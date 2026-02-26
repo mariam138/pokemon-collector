@@ -2,7 +2,7 @@ import NavButton from '../../components/NavButton/NavButton';
 import './Nav.scss';
 import { Link } from 'react-router-dom';
 
-const Nav = ({ }) => {
+const Nav = ({ user }) => {
     const handleLogout = async () => {
         try {
             await fetch(
@@ -46,7 +46,7 @@ const Nav = ({ }) => {
                 </Link>
             </section>
 
-            <section className="Nav_user">User</section>
+            <section className="Nav_user">{user && `Hi ${user.name}`}</section>
         </div>
     );
 };

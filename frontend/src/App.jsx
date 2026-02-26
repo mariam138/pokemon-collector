@@ -7,15 +7,13 @@ import { getOnlyUrl, cleanPokemonData } from './functions';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { API_URL } from './api';
-import { set } from 'rsuite/esm/internals/utils/date';
+
 
 function App() {
     const [user, setUser] = useState({});
     const allPokemonDataUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=151';
 
     const [pokemonData, setPokemonData] = useState([]);
-
-    
 
     const handleLogin = async (email, name) => {
         const response = await fetch(`${API_URL}api/users/login`, {
@@ -75,7 +73,7 @@ function App() {
 
     return (
         <main className="main">
-            {user && <Nav goBackToLogin={goBackToLogin} goToDashboard={goToDashboard} />}
+            {user && <Nav user={user} goBackToLogin={goBackToLogin} goToDashboard={goToDashboard} />}
 
             {/* Once user is logged in, they see the dashboard */}
             {/* If user is not logged in, they see the login page */}
