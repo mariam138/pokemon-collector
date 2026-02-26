@@ -1,8 +1,20 @@
-// @import "./../../variables";
+@import "./../../variables";
 
-// .Login {
-//   text-align: center;
-//   background: url("https://th.bing.com/th/id/R.a66ce352d22f01c5fd34ca8fa8e02837?rik=cGRebNp2ZLD%2bwg&riu=http%3a%2f%2fgetwallpapers.com%2fwallpaper%2ffull%2f1%2fb%2fe%2f70685.jpg&ehk=sTEEzoxZthnfCaWiQRce3yOIjzYZB8MekpDpoovW2r0%3d&risl=&pid=ImgRaw&r=0");
-//   background-size: 100%;
-//   background-color: green;
-// }
+.login-page {
+  min-height: 100vh;
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-image: url("https://th.bing.com/th/id/R.a66ce352d22f01c5fd34ca8fa8e02837?rik=cGRebNp2ZLD%2bwg&riu=http%3a%2f%2fgetwallpapers.com%2fwallpaper%2ffull%2f1%2fb%2fe%2f70685.jpg&ehk=sTEEzoxZthnfCaWiQRce3yOIjzYZB8MekpDpoovW2r0%3d&risl=&pid=ImgRaw&r=0");
+  background-size: cover;
+  background-position: center;
+  padding: 20px;
+}
+
+.login__logo {
+  width: 65%;
+  max-width: 500px;
+}
