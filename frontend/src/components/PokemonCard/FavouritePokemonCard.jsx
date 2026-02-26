@@ -26,7 +26,7 @@ const FavoritedPokemonCard = ({ pokemon  }) => {
         </p>
 
         <p>
-          <strong>Base Experience : {pokemon.base_experience}</strong>
+          <strong>Base Experience : {pokemon.baseExperience}</strong>
         </p>
         <p>
           <strong>Height: {pokemon.height / 10}m</strong>

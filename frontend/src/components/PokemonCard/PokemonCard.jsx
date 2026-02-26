@@ -47,7 +47,7 @@ const PokemonCard = ({ pokemon, onSelectPokemon, onUnselectPokemon }) => {
             <strong>Base Experience : {pokemon.base_experience}</strong>
           </p>
           <p>
-            <strong>Height: {pokemon.height}</strong>
+            <strong>Height: {pokemon.height /10}m</strong>
           </p>
           <p>
             <strong>Weight: {pokemon.weight}kg</strong>

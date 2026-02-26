@@ -1,7 +1,7 @@
 import "./NavButton.scss";
 
-const NavButton = ({ name }) => {
-  return <button className="NavButton">{name}</button>;
+const NavButton = ({ name, onClick = null }) => {
+  return <button className="NavButton" onClick={onClick}>{name}</button>;
 };
 
 export default NavButton;
