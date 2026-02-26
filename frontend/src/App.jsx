@@ -6,15 +6,16 @@ import Login from './containers/Login/Login';
 import { getOnlyUrl, cleanPokemonData } from './functions';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { API_URL } from './api';
+import { set } from 'rsuite/esm/internals/utils/date';
 
 function App() {
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState({});
     const allPokemonDataUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=151';
 
     const [pokemonData, setPokemonData] = useState([]);
 
-    const API_URL =
-        'https://pokemon-collector-backend-production-4148.up.railway.app/';
+    
 
     const handleLogin = async (email, name) => {
         const response = await fetch(`${API_URL}api/users/login`, {
@@ -28,8 +29,15 @@ function App() {
             throw new Error('Failed to login');
         }
         const data = await response.json();
-        console.log(data);
-        setUser(data);
+        console.log("data:", data);
+        
+        if(data) {
+            setUser(data);
+        }
+
+      
+        console.log('user in app:', user);
+        console.log(user.id)
     };
 
     useEffect(() => {
@@ -50,9 +58,10 @@ function App() {
 
             setPokemonData(pokemonDataArray);
         };
+        console.log("user in useEffect:", user);
 
         getPokemons();
-    }, []);
+    }, [user]);
 
     const navigate = useNavigate();
 
@@ -76,7 +85,7 @@ function App() {
                 <Route path="/" element={<Login goToDashboard={goToDashboard} handleLogin={handleLogin} />} />
                 <Route
                     path="/dashboard"
-                    element={<Dashboard pokemonData={pokemonData} />}
+                    element={<Dashboard pokemonData={pokemonData} user={user} />}
                 />
                 <Route path="/selected" element={<Selected />} />
                 <Route path="*" element={<Login goToDashboard={goToDashboard} handleLogin={handleLogin}/>} />

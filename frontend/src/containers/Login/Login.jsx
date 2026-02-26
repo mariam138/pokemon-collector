@@ -1,4 +1,5 @@
-import LoginForm from './LoginForm';
+import LoginForm from '../LoginForm/LoginForm';
+import './Login.scss';
 
 const Login = ({ handleLogin, goToDashboard }) => {
     const loginWithGithub = () => {
@@ -7,8 +8,8 @@ const Login = ({ handleLogin, goToDashboard }) => {
     };
 
     return (
-        <div style={{ textAlign: 'center', marginTop: '100px' }}>
-            <h1>Welcome to Pokémon Collector</h1>
+        <div className="Login">
+            {/* <h1>Welcome to Pokémon Collector</h1>
             <p>Please login to continue</p>
 
             <div style={{ marginTop: '20px' }}>
@@ -17,7 +18,7 @@ const Login = ({ handleLogin, goToDashboard }) => {
                     style={{ padding: '10px 20px' }}>
                     Login with GitHub
                 </button>
-            </div>
+            </div> */}
 
             <LoginForm handleLogin={handleLogin} goToDashboard={goToDashboard} />
         </div>
