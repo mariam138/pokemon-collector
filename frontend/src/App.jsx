@@ -15,13 +15,10 @@ function App() {
     const API_URL =
         'https://pokemon-collector-backend-production-4148.up.railway.app/';
 
-    const handleLogin = async (email, name) => {
+    const handleLogin = async () => {
         const response = await fetch(`${API_URL}api/users/login`, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ email, name }),
+            body: JSON.stringify({ email: 'test@test.com', name: 'John' }),
         });
         const data = await response.json();
         console.log(data);
