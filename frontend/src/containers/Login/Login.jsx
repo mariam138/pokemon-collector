@@ -5,7 +5,7 @@ const Login = ({ handleLogin, goToDashboard }) => {
   return (
     <div className="login-page">
       <img
-        className="login__logo"
+        className="login-page__logo"
         src="https://www.freepnglogos.com/uploads/pokemon-logo-text-png-7.png"
         alt="Pokemon Logo"
       />
