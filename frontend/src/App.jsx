@@ -29,15 +29,16 @@ function App() {
             throw new Error('Failed to login');
         }
         const data = await response.json();
-        console.log("data:", data);
+        
         
         if(data) {
             setUser(data);
         }
 
-      
+        console.log("data:", data);
         console.log('user in app:', user);
         console.log(user.id)
+        console.log(data)
     };
 
     useEffect(() => {
@@ -59,7 +60,6 @@ function App() {
             setPokemonData(pokemonDataArray);
         };
         console.log("user in useEffect:", user);
-
         getPokemons();
     }, [user]);
 
