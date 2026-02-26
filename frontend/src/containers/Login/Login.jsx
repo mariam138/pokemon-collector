@@ -4,7 +4,7 @@ import "./Login.scss";
 const Login = ({ handleLogin, goToDashboard }) => {
   return (
     <>
-      {/* <div className="login-page__background"></div> */}
+      <div className="login-page__background"></div>
       <div className="login-page">
         <img
           className="login-page__logo"
