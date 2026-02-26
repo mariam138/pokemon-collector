@@ -9,7 +9,6 @@ const [selectedPokemon, setSelectedPokemon] = useState([]);
 console.log("this is an array of selected pokemon:", selectedPokemon);
 const [favouritePokemons, setFavouritePokemons] = useState([]);
 
-
   // Add a key on pokemon object to identify the pokemon which are already in the favourites list
 
   const updatedPokemonData = pokemonData.map((pokemon) => {

@@ -21,8 +21,15 @@ const PokemonCard = ({ pokemon, onSelectPokemon, onUnselectPokemon }) => {
     return (
         <div className="pokemon-card">
             <section className="pokemon-card_header">
-                <p>{pokemon.id}</p>
+                <p className="pokemon-card_id">{pokemon.id}</p>
                 <h1 className="pokemon-card_name">{pokemon.name}</h1>
+              <Checkbox
+                  className="pokemon-card_checkbox"
+                  name="Pokemon"
+                  checked={pokemon.isFavourite}
+                  onChange={handleTickCheckboxChange}
+                  value={pokemon}>
+              </Checkbox>
             </section>
 
             <img
@@ -56,11 +63,6 @@ const PokemonCard = ({ pokemon, onSelectPokemon, onUnselectPokemon }) => {
                 ))}
             </section>
 
-            <Checkbox
-                name="Pokemon"
-                checked={pokemon.isFavourite}
-                onChange={handleTickCheckboxChange}
-                value={pokemon}></Checkbox>
         </div>
     );
 };
