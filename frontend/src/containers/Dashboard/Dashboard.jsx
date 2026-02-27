@@ -1,11 +1,12 @@
-import PokemonButtons from "../../components/PokemonButtons/PokemonButtons";
+import { preparePokemonDataToBackend } from "../../functions";
 import { useState } from "react";
 import PokemonCard from "../../components/PokemonCard/PokemonCard";
 import "./Dashboard.scss";
 import { API_URL } from "../../api";
+
 const Dashboard = ({ pokemonData, user }) => {
   const [selectedPokemon, setSelectedPokemon] = useState([]);
-  console.log(selectedPokemon);
+  console.log("this is an array of selected pokemon:", selectedPokemon);
   const [favouritePokemons, setFavouritePokemons] = useState([]);
 
   // Add a key on pokemon object to identify the pokemon which are already in the favourites list
@@ -24,23 +25,22 @@ const Dashboard = ({ pokemonData, user }) => {
 
   const handleSelectPokemon = (pokemon) => {
     setSelectedPokemon([...selectedPokemon, pokemon]);
-    console.log("user:", user);
+    console.log("user in handle slect pokemon:", user);
+    preparePokemonDataToBackend(selectedPokemon);
   };
 
   const handleUnselectPokemon = (pokemon) => {
     setSelectedPokemon(selectedPokemon.filter((p) => p.id !== pokemon.id));
   };
 
-  //"https://pokemon-collector-backend-production-4148.up.railway.app/api/users/1/favourites"
+  //"https://pokemon-collector-backend-production-4148.up.railway.app/api/users/41/favourites"
   //"https://pokemon-collector-backend-production-4148.up.railway.app/api/users/1/favourites
-
   //  "https://pokemon-collector-backend-production-4148.up.railway.app/
+
   const handleSubmitSelectedPokemons = () => {
     fetch(`${API_URL}api/users/${user.id}/favourites`, {
       method: "POST",
-      body: JSON.stringify({
-        selectedPokemonIds: selectedPokemon.map((p) => p.id),
-      }),
+      body: JSON.stringify(preparePokemonDataToBackend(selectedPokemon)),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
       },
@@ -57,7 +57,11 @@ const Dashboard = ({ pokemonData, user }) => {
 
   return (
     <div className="Dashboard">
-      <button onClick={handleSubmitSelectedPokemons}>Submit {selectedPokemon.length} Selected Pokemons</button>
+      {user && (
+        <button onClick={handleSubmitSelectedPokemons}>
+          Submit {selectedPokemon.length} Selected Pokemons
+        </button>
+      )}
       {pokemonData ? (
         pokemonData.map((pokemon) => {
           return (

@@ -4,14 +4,12 @@ import Dashboard from "./containers/Dashboard/Dashboard";
 import Selected from "./containers/Selected/Selected";
 import Login from "./containers/Login/Login";
 import { getOnlyUrl, cleanPokemonData } from "./functions";
-import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { API_URL } from "./api";
-import { set } from "rsuite/esm/internals/utils/date";
 
 function App() {
-  const location = useLocation();
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(null);
   const allPokemonDataUrl = "https://pokeapi.co/api/v2/pokemon/?limit=151";
 
   const [pokemonData, setPokemonData] = useState([]);
@@ -28,14 +26,10 @@ function App() {
       throw new Error("Failed to login");
     }
     const data = await response.json();
-    console.log("data:", data);
 
     if (data) {
       setUser(data);
     }
-
-    console.log("user in app:", user);
-    console.log(user.id);
   };
 
   useEffect(() => {
@@ -56,8 +50,6 @@ function App() {
 
       setPokemonData(pokemonDataArray);
     };
-    console.log("user in useEffect:", user);
-
     getPokemons();
   }, [user]);
 
@@ -73,8 +65,15 @@ function App() {
 
   return (
     <main className="main">
-      {location.pathname !== "/" && (
-        <Nav goBackToLogin={goBackToLogin} goToDashboard={goToDashboard} />
+      {user ? (
+        <Nav
+          setUser={setUser}
+          user={user}
+          goBackToLogin={goBackToLogin}
+          goToDashboard={goToDashboard}
+        />
+      ) : (
+        ""
       )}
 
       {/* Once user is logged in, they see the dashboard */}
@@ -92,7 +91,7 @@ function App() {
           path="/dashboard"
           element={<Dashboard pokemonData={pokemonData} user={user} />}
         />
-        <Route path="/selected" element={<Selected />} />
+        <Route path="/selected" element={<Selected user={user} />} />
         <Route
           path="*"
           element={
