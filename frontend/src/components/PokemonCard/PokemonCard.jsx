@@ -26,7 +26,7 @@ const PokemonCard = ({ pokemon, onSelectPokemon, onUnselectPokemon }) => {
           <Checkbox
             className="pokemon-card_checkbox"
             name="Pokemon"
-            checked={pokemon.isFavourite}
+            checked={isChecked}
             onChange={handleTickCheckboxChange}
             value={pokemon}
           ></Checkbox>

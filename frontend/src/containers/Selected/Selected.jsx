@@ -19,7 +19,7 @@ const Selected = ({ user }) => {
       .catch((err) => {
         console.log(err.message);
       });
-  }, [user]); // runs when user changes
+  }, [user]);
 
   return (
     <div className="Selected">

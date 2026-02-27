@@ -10,23 +10,50 @@ const Dashboard = ({ pokemonData, user }) => {
   const [favouritePokemons, setFavouritePokemons] = useState([]);
 
   // Add a key on pokemon object to identify the pokemon which are already in the favourites list
+  // setFavouritePokemons(
+  //   fetch(`${API_URL}api/users/${user.id}/favourites`)
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       console.log(data);
+  //       setFavouritePokemons(data);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err.message);
+  //     }),
+  // );
+  useEffect(() => {
+    if (!user) return; // Prevent crash if user is null
 
-  const updatedPokemonData = pokemonData.map((pokemon) => {
+    fetch(`${API_URL}api/users/${user.id}/favourites`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("favourites from backend:", data);
+        setFavouritePokemons(data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, [user]);
+
+  const updatedPokemonData = pokemonData?.map((pokemon) => {
     return {
       ...pokemon,
-      isFavourite: favouritePokemons.includes(pokemon.id),
+      isFavourite: favouritePokemons.some((fav) => fav.id === pokemon.id),
     };
   });
 
   // Create a submit button to send the selected pokemons to the backend
   // you need to then trigger a refresh of the dashboard to show the new favourites
   // Do API call to favouritePokemons endpoint to check which pokemons are already in the favourites list
+  // url/api/users/{userId}/favourites
   // Render the pokemons cards with the checkbox checked if the pokemon is in the favourites list
 
   const handleSelectPokemon = (pokemon) => {
-    setSelectedPokemon([...selectedPokemon, pokemon]);
-    console.log("user in handle slect pokemon:", user);
-    preparePokemonDataToBackend(selectedPokemon);
+    setSelectedPokemon((prev) => {
+      const updated = [...prev, pokemon];
+      preparePokemonDataToBackend(updated);
+      return updated;
+    });
   };
 
   const handleUnselectPokemon = (pokemon) => {
@@ -41,43 +68,50 @@ const Dashboard = ({ pokemonData, user }) => {
         "Content-type": "application/json; charset=UTF-8",
       },
     })
+      .then(() => {
+        // After POST, fetch updated favourites
+        return fetch(`${API_URL}api/users/${user.id}/favourites`);
+      })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-        // Handle data
+        console.log("updated favourites:", data);
+        setFavouritePokemons(data);
       })
       .catch((err) => {
         console.log(err.message);
       });
-      setSelectedPokemon([]);
-  };
 
+    setSelectedPokemon([]);
+  };
 
   return (
     <div className="Dashboard">
       <div>
-      {user && (
-        <button className="Dashboard_button" onClick={handleSubmitSelectedPokemons}>
-          Submit {selectedPokemon.length} Selected Pokemons
-        </button>
-      )}
+        {user && (
+          <button
+            className="Dashboard_button"
+            onClick={handleSubmitSelectedPokemons}
+          >
+            Submit {selectedPokemon.length} Selected Pokemons
+          </button>
+        )}
       </div>
       <div className="Dashboard">
-      {pokemonData ? (
-        pokemonData.map((pokemon) => {
-          return (
-            <PokemonCard
-              pokemonArray={pokemonData}
-              key={pokemon.id}
-              pokemon={pokemon}
-              onSelectPokemon={handleSelectPokemon}
-              onUnselectPokemon={handleUnselectPokemon}
-            />
-          );
-        })
-      ) : (
-        <p>Loading...</p>
-      )}
+        {updatedPokemonData ? (
+          updatedPokemonData.map((pokemon) => {
+            return (
+              <PokemonCard
+                pokemonArray={updatedPokemonData}
+                key={pokemon.id}
+                pokemon={pokemon}
+                onSelectPokemon={handleSelectPokemon}
+                onUnselectPokemon={handleUnselectPokemon}
+              />
+            );
+          })
+        ) : (
+          <p>Loading...</p>
+        )}
       </div>
     </div>
   );
