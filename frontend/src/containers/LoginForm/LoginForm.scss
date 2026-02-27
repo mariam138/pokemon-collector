@@ -1,71 +1,76 @@
 @import "./../../variables";
-//Add BEM
-//
 
-.addUser {
-	width: 100%;
-	margin: 50px auto;
-	background-color: white;
-	padding: 40px;
-	border-radius: 10px;
-	box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.065);
-}
+.login-form {
+  font-family: "Courier New", Courier, monospace;
+  margin: 0 auto;
+  margin-top: 58px;
+  text-align: start;
+  background-color: white;
+  padding: 55px 60px 45px 60px;
+  border-radius: 10px;
+  box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.065);
+  width: calc(45% - 10px);
+  max-width: 450px;
 
-.addUserForm .inputGroup {
-	width: 100%;
-	display: flex;
-	flex-direction: column;
-}
+  &__form {
+    display: flex;
+    flex-direction: column;
+  }
 
-.addUserForm .inputGroup label {
-	margin-top: 10px;
-}
+  &__field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 30px;
+  }
 
-.addUserForm .inputGroup input {
-	padding: 10px;
-	margin-top: 5px;
-	/* border-radius: 5px; */
-	border-color: lightgray;
-}
+  &__label {
+    margin-top: 8px;
+    font-size: 18px;
+    display: flex;
+    flex-direction: column;
+    justify-self: start;
+    align-self: flex-start;
+  }
 
-label {
-	font-size: 16px;
-	display: flex;
-	flex-direction: column;
-	justify-self: start;
-	align-self: flex-start;
-}
+  &__input {
+    padding: 10px;
+    margin-top: 7px;
+    font-size: 15px;
+    outline: none;
+    &:focus {
+      border: 1px solid $secondary-color;
+    }
+  }
 
-.btn {
-	font-size: 14px;
-	margin-top: 10px;
-}
+  &__button {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 18px;
+    font-weight: bold;
+    width: 160px;
+    height: 46px;
+    margin: 10px auto 0;
+    background: linear-gradient(to right, $octonary-color, $quinary-color);
+    border-radius: 80px;
+    border: 3px;
 
-.btn-success {
-	background-color: green;
-	color: white;
-}
+    color: black;
+    text-align: center;
+    cursor: pointer;
 
-.btn-primary {
-	background-color: blue;
-	color: white;
-}
+    &:hover {
+      background: linear-gradient(
+        to right,
+        darken($octonary-color, 10%),
+        darken($quinary-color, 10%)
+      );
+    }
 
-.inputGroup button {
-	margin-top: 10px;
-}
-
-.login {
-	margin-top: 30px;
-	text-align: center;
-}
-
-.login .btn.btn-success {
-	width: 50%;
-}
-
-.addUser h3 {
-	text-align: center;
-	font-weight: bold;
-	font-size: x-large;
+    &:active {
+      background: linear-gradient(
+        to right,
+        darken($octonary-color, 20%),
+        darken($quinary-color, 20%)
+      );
+    }
+  }
 }
