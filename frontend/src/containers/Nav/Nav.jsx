@@ -44,14 +44,11 @@ const Nav = ({ user, setUser }) => {
           <NavButton name="Collected" />
         </Link>
 
-        {/* <Link className="Nav_logoutBtn" to="/"> */}
-          {/* <NavButton name="Logout" onClick={handleLogout} /> */}
-          {/* <button onClick={handleLogout}>Logout</button> */}
-        {/* </Link> */}
+    
         <NavButton name="Logout" onClick={handleLogout} />
       </section>
 
-      <section className="Nav_user">{user && `Hi ${user.name}`}</section>
+      <section className="Nav_user">{user && `Hi ${user.name}!`}</section>
     </div>
   );
 };

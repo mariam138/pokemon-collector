@@ -1,12 +1,30 @@
 @import "./../../variables";
 
 .Dashboard {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    background-color: $senary-color;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  background-color: $senary-color;
+  width: 100%;
 
-    width: 100%;
-    
+  &_button {
+    margin: 5px;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 14px;
+    font-weight: bold;
+    width: 270px;
+    background-color: $octonary-color;
+    background: linear-gradient(to right, $octonary-color, $quinary-color);
+    border-radius: 80px;
+    height: 45px;
+    margin: 5px;
+    padding: 0;
+    border: 3px dashed $primary-color;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 50px;
+    text-align: center;
+  }
 }

@@ -57,11 +57,14 @@ const Dashboard = ({ pokemonData, user }) => {
 
   return (
     <div className="Dashboard">
+      <div>
       {user && (
-        <button onClick={handleSubmitSelectedPokemons}>
+        <button className="Dashboard_button" onClick={handleSubmitSelectedPokemons}>
           Submit {selectedPokemon.length} Selected Pokemons
         </button>
       )}
+      </div>
+      <div className="Dashboard">
       {pokemonData ? (
         pokemonData.map((pokemon) => {
           return (
@@ -77,6 +80,7 @@ const Dashboard = ({ pokemonData, user }) => {
       ) : (
         <p>Loading...</p>
       )}
+      </div>
     </div>
   );
 };
