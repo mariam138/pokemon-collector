@@ -14,8 +14,14 @@ Select them and then view them again on the selection page.
 
 - Spring boot backend
 - React and SCSS frontend
-- Hosted on Railway and GitHub pages
+- Hosted on Railway
 - MySQL database for persistence
+
+### UML Diagram
+
+The User and Pokémon entities have a Many-to-many relationship, as displayed below.
+
+![pokemon-collector-uml.jpeg](assets/pokemon-collector-uml.jpeg)
 
 ### Live demo
 
