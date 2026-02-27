@@ -1,27 +1,20 @@
-import LoginForm from './LoginForm';
+import LoginForm from "../LoginForm/LoginForm";
+import "./Login.scss";
 
-const Login = ({ handleLogin }) => {
-    const loginWithGithub = () => {
-        window.location.href =
-            'https://pokemon-collector-production-3913.up.railway.app/oauth2/authorization/github';
-    };
-
-    return (
-        <div style={{ textAlign: 'center', marginTop: '100px' }}>
-            <h1>Welcome to Pokémon Collector</h1>
-            <p>Please login to continue</p>
-
-            <div style={{ marginTop: '20px' }}>
-                <button
-                    onClick={loginWithGithub}
-                    style={{ padding: '10px 20px' }}>
-                    Login with GitHub
-                </button>
-            </div>
-
-            <LoginForm handleLogin={handleLogin} />
-        </div>
-    );
+const Login = ({ handleLogin, goToDashboard }) => {
+  return (
+    <div className="login">
+      <div className="login__bg" />
+      <div className="login__content">
+        <img
+          className="login__logo"
+          src="https://www.freepnglogos.com/uploads/pokemon-logo-text-png-7.png"
+          alt="Pokemon Logo"
+        />
+        <LoginForm handleLogin={handleLogin} goToDashboard={goToDashboard} />
+      </div>
+    </div>
+  );
 };
 
 export default Login;
