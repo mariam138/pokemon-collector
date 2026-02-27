@@ -1,5 +1,5 @@
 import { preparePokemonDataToBackend } from "../../functions";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PokemonCard from "../../components/PokemonCard/PokemonCard";
 import "./Dashboard.scss";
 import { API_URL } from "../../api";
@@ -33,10 +33,6 @@ const Dashboard = ({ pokemonData, user }) => {
     setSelectedPokemon(selectedPokemon.filter((p) => p.id !== pokemon.id));
   };
 
-  //"https://pokemon-collector-backend-production-4148.up.railway.app/api/users/41/favourites"
-  //"https://pokemon-collector-backend-production-4148.up.railway.app/api/users/1/favourites
-  //  "https://pokemon-collector-backend-production-4148.up.railway.app/
-
   const handleSubmitSelectedPokemons = () => {
     fetch(`${API_URL}api/users/${user.id}/favourites`, {
       method: "POST",
@@ -53,7 +49,9 @@ const Dashboard = ({ pokemonData, user }) => {
       .catch((err) => {
         console.log(err.message);
       });
+      setSelectedPokemon([]);
   };
+
 
   return (
     <div className="Dashboard">

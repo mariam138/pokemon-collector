@@ -7,22 +7,6 @@ const Nav = ({ user, setUser }) => {
     setUser(null);
     window.location.hash = "#/";
     window.location.reload();
-    // try {
-    //     await fetch(
-    //         'https://pokemon-collector-production-3913.up.railway.app/oauth2/authorization/logout',
-    //         {
-    //             method: 'POST',
-    //             credentials: 'include',
-    //         },
-    //     );
-    // } catch (error) {
-    //     console.error('Logout failed:', error);
-    // } finally {
-    //     // Stay in the app: go to login route and reload to re-check auth
-    //     setUser(null);
-    //     window.location.hash = '#/';
-    //     window.location.reload();
-    // }
   };
 
   return (
